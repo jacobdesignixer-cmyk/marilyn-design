@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Calculate Vertical Position along the pole
     const stageHeight = poleStage.clientHeight;
-    const rigHeight = 190;
+    const rigHeight = 220;
     const maxTravel = Math.max(stageHeight - rigHeight - 20, 50);
     const targetY = scrollProgress * maxTravel;
 
