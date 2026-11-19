@@ -2230,3 +2230,198 @@ select.form-control option {
   width: 100%;
   justify-content: center;
 }
+
+/* ===================================================================
+   INTERACTIVE SCROLL-DRIVEN POLE DANCER STAGE (LEFT EDGE)
+=================================================================== */
+.pole-dancer-stage {
+  position: fixed;
+  top: 60px;
+  bottom: 80px;
+  left: 12px;
+  width: 90px;
+  z-index: 95;
+  pointer-events: none; /* Never blocks clicks */
+  perspective: 900px; /* Enables 3D spin */
+}
+
+@media (min-width: 769px) {
+  .pole-dancer-stage {
+    top: 75px;
+    bottom: 25px;
+    left: 28px;
+    width: 130px;
+  }
+}
+
+.pole-stage-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Vertical Chrome & Neon Pole */
+.vertical-pole {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 26px;
+  width: 8px;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    #333 0%,
+    #bbb 25%,
+    #ffffff 50%,
+    #888 75%,
+    #222 100%
+  );
+  box-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 0, 127, 0.7),
+    0 0 35px rgba(0, 240, 255, 0.5);
+}
+
+.pole-glow-line {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--neon-pink) 0%,
+    var(--neon-cyan) 50%,
+    var(--neon-gold) 100%
+  );
+  opacity: 0.65;
+  mix-blend-mode: overlay;
+  border-radius: 4px;
+}
+
+.pole-mount {
+  position: absolute;
+  left: 16px;
+  width: 28px;
+  height: 8px;
+  background: linear-gradient(90deg, #555, #fff, #333);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.6);
+}
+
+.top-mount { top: 0; }
+.bottom-mount { bottom: 0; }
+
+/* Animated Dancer Rig */
+.pole-dancer-rig {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 110px;
+  height: 190px;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transform-origin: 30px center;
+  transition: transform 0.05s linear;
+}
+
+.dancer-aura {
+  position: absolute;
+  top: 15px;
+  left: 8px;
+  width: 85px;
+  height: 130px;
+  background: radial-gradient(circle, rgba(255, 0, 127, 0.4) 0%, rgba(0, 240, 255, 0.25) 50%, transparent 80%);
+  filter: blur(15px);
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.dancer-poses-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.dancer-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+  filter: drop-shadow(0 0 12px rgba(255, 0, 127, 0.85)) drop-shadow(0 0 20px rgba(0, 240, 255, 0.6));
+}
+
+.dancer-svg.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Contact Sparks on Scroll */
+.pole-sparks-emitter {
+  position: absolute;
+  top: 45px;
+  left: 26px;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.scroll-spark {
+  position: absolute;
+  font-size: 0.95rem;
+  pointer-events: none;
+  animation: sparkFly 0.55s ease-out forwards;
+}
+
+@keyframes sparkFly {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx, 20px), var(--ty, -20px)) scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* Mini Tag at Base */
+.pole-vibe-tag {
+  position: absolute;
+  bottom: -24px;
+  left: -2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(10, 8, 20, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 0, 127, 0.45);
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: var(--neon-cyan);
+  white-space: nowrap;
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+}
+
+.pole-vibe-tag .vibe-sparkle {
+  color: var(--neon-gold);
+  animation: continuousPulse 1.5s infinite;
+}
+
+/* Subtle Idle Floating when scroll pauses */
+@keyframes idlePoleBreathe {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(255, 0, 127, 0.85)) drop-shadow(0 0 20px rgba(0, 240, 255, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(255, 0, 127, 1)) drop-shadow(0 0 35px rgba(0, 240, 255, 0.85));
+  }
+}
+
+.pole-dancer-rig.idle-glow {
+  animation: idlePoleBreathe 3s ease-in-out infinite;
+}
+
